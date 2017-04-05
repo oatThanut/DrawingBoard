@@ -1,6 +1,5 @@
 package objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +26,9 @@ public class CompositeGObject extends GObject {
 	@Override
 	public void move(int dX, int dY) {
 		// TODO: Implement this method.
-        int tempX = super.x;
-        int tempY = super.y;
-
         super.move(dX, dY);
 		for(GObject m : this.gObjects){
-            m.move( dX - tempX + m.x, dY - tempY + m.y );
+            m.move(dX, dY);
 		}
 
 	}

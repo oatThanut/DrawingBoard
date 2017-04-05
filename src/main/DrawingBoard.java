@@ -33,20 +33,23 @@ public class DrawingBoard extends JPanel {
 		// TODO: Implement this method.
         CompositeGObject group = new CompositeGObject();
         for(GObject a : gObjects) {
-        	if(a instanceof CompositeGObject){
+            if(a instanceof CompositeGObject) {
+                group = (CompositeGObject) a;
+            } else {
+        	    a.deselected();
+                group.add(a);
+            }
 
-			}
-            group.add(a);
         }
         group.recalculateRegion();
         repaint();
         clear();
         gObjects.add(group);
+
 	}
 
 	public void deleteSelected() {
 		// TODO: Implement this method.
-
         gObjects.remove(target);
         target = null;
         repaint();
@@ -92,8 +95,7 @@ public class DrawingBoard extends JPanel {
 	class MAdapter extends MouseAdapter {
 
 		// TODO: You need some variables here
-        int x = 0;
-        int y = 0;
+        int x = 0, y = 0 , preX, preY;
 		
 		private void deselectAll() {
 			// TODO: Implement this method.
@@ -116,6 +118,7 @@ public class DrawingBoard extends JPanel {
                     break;
 
                 }
+                target = null;
             }
             repaint();
 		}
@@ -123,8 +126,13 @@ public class DrawingBoard extends JPanel {
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			// TODO: Implement this method.
+			preX = x;
+			preY = y;
+			x = e.getX();
+			y = e.getY();
+
             if(target != null) {
-                target.move(e.getX(), e.getY());
+                target.move(x - preX, y - preY);
             }
                 repaint();
 

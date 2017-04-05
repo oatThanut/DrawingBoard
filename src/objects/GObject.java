@@ -42,8 +42,8 @@ public abstract class GObject {
 	
 	public void move(int dX, int dY) { // fix smooth motion
 		// TODO: Implement this method.
-			this.x = dX;
-			this.y = dY;
+		this.x += dX;
+		this.y += dY;
 	}
 
 	public final void paint(Graphics g) {
